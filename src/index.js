@@ -2,30 +2,6 @@ import { compareAsc, format } from 'date-fns'
 
 let projects = [];
 
-let newProjectBtn = document.getElementById("nav-btn");
-let newProjectForm = document.getElementById("np-hide");
-let newProjectClose = document.getElementById("np-close");
-
-// Show form when new project is clicked
-newProjectBtn.addEventListener("click", function() {
-  newProjectForm.style.display = "block";
-});
-
-// Hide form when closed
-newProjectClose.addEventListener("click", function() {
-  newProjectForm.style.display = "none";
-});
-
-// localStorage.setItem("projects", JSON.stringify(projects));
-// localStorage.getItem("projects");
-
-// let date = format(new Date(2011, 6, 12), 'yyyy-MM-dd');
-// let defaultDate = new Date(2011, 6, 11);
-
-// console.log(date);
-// console.log(defaultDate);
-
-
 // Factory function for Projects that contain a todo array
 let Project = (name, todo) => {
   let getName = () => name;
@@ -63,10 +39,6 @@ let Todo = (title, description, dueDate, priority) => {
   }
 };
 
-// let addTodo = (target, todo) => {
-
-// };
-
 let todo1 = Todo("Default Title1", "Default description1", format(new Date(2020, 9, 14), 'MM-dd-yyyy'), 8);
 
 let todo2 = Todo("Default Title2", "Default description2", format(new Date(2020, 9, 15), 'MM-dd-yyyy'), 9);
@@ -82,6 +54,9 @@ schoolWork.addTodo(todo2);
 
 
 let render = () => {
+  // Remove all previous renders so there are no accidental duplicates
+  document.querySelectorAll(".proj-div").forEach( project => project.remove());
+
   let gridDiv = document.getElementById("todo-grid");
 
   projects.forEach( project => {
@@ -204,3 +179,59 @@ let render = () => {
 };
 
 render();
+
+let flashMsg = (type, message) => {
+  let flashDiv = document.getElementById("flash");
+
+  flashDiv.style.display = "block";
+  flashDiv.textContent = message;
+
+  if (type === "error") {
+    flashDiv.style.backgroundColor = "rgb(128, 0, 0)";
+  } else if (type === "success") {
+    flashDiv.style.backgroundColor = "rgb(0, 156, 34)";
+  };
+
+  setTimeout(function() {
+    flashDiv.style.display = "none";
+  }, 4000);
+};
+
+let newProject = (() => {
+  let start = () => {
+    let newProjectBtn = document.getElementById("nav-btn");
+    let newProjectForm = document.getElementById("np-hide");
+    let newProjectClose = document.getElementById("np-close");
+    let newProjectSubmit = document.getElementById("np-submit");
+    let newProjectInput = document.getElementById("np-input");
+
+    // Show form when new project is clicked
+    newProjectBtn.addEventListener("click", function() {
+      newProjectForm.style.display = "block";
+    });
+
+    // Hide form when closed
+    newProjectClose.addEventListener("click", function() {
+      newProjectForm.style.display = "none";
+    });
+
+    newProjectSubmit.addEventListener("click", function() {
+      if ((!newProjectInput.value.trim().length) || newProjectInput.value.length === 0) {
+        console.log("empty");
+        flashMsg("error", "Project name cannot be empty");
+      } else {
+        let newProj = Project(newProjectInput.value, []);
+        projects.push(newProj);
+        flashMsg("success", `Project ${newProjectInput.value} was created`);
+        newProjectInput.value = "";
+        render();
+      };
+    });
+  };
+
+  return {
+    start
+  };
+})();
+
+newProject.start();

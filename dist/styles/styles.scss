@@ -64,6 +64,20 @@ body {
   background-color: $gray;
 }
 
+#flash {
+	margin-top: 55px;
+	background-color: $red;
+	z-index: 999;
+	font-size: 30px;
+	font-weight: 900;
+	text-align: center;
+	padding: 10px 0 10px 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	display: none;
+}
+
 #navbar {
 	background-color: $blue;
 	display: grid;
@@ -103,14 +117,16 @@ body {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	column-gap: 30px;
+	row-gap: 50px;
+	padding: 0 30px 0 30px;
 	align-items: center;
 	justify-items: center;
-	margin-top: 100px;
+	margin-top: 105px;
+	margin-bottom: 1000px;
 }
 
 .proj-div {
-	border: 1px solid white;
-	background-color: black;
+	background-color: $dark-gray;
 	width: 100%;
 }
 
@@ -216,6 +232,7 @@ body {
 	padding: 5px 0 5px 0;
 	font-size: 25px;
 	font-weight: 900;
+	border: 0px;
 }
 
 #np-submit:hover {
