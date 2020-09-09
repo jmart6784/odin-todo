@@ -1,0 +1,223 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	// font-size: 100%;
+	// font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+$light-gray: rgb(59, 59, 59);
+$gray: rgb(39, 39, 39);
+$dark-gray: rgb(24, 24, 24);
+$blue: rgb(0, 107, 89);
+$green: rgb(0, 156, 34);
+$light-green: rgb(0, 197, 43);
+$red: rgb(128, 0, 0);
+
+h1, h2, h3, h4, h5, h6, span, div, a, p, button, input {
+	font-family: 'Rajdhani', sans-serif;
+  color: white;
+}
+
+body {
+  background-color: $gray;
+}
+
+#navbar {
+	background-color: $blue;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	width: 100%;
+}
+
+#nav-title {
+	padding: 10px 0 10px 30px;
+	font-size: 35px;
+}
+
+#nav-btn {
+	background-color: $green;
+	width: 30%;
+	font-size: 25px;
+	font-weight: 900;
+	border: 0px;
+	height: 70%;
+	justify-self: end;
+	margin-right: 30px;
+}
+
+#nav-btn:hover {
+	background-color: $light-green;
+}
+
+// #container {
+// 	border: 1px solid red;
+// }
+
+#todo-grid {
+	border: 1px solid blue;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	column-gap: 30px;
+	align-items: center;
+	justify-items: center;
+	margin-top: 100px;
+}
+
+.proj-div {
+	border: 1px solid white;
+	background-color: black;
+	width: 100%;
+}
+
+.proj-name {
+	text-align: center;
+	padding: 10px 0 10px 0;
+	background-color: $blue;
+}
+
+.proj-todo-btn {
+	background-color: $green;
+	border: 0px;
+	width: 100%;
+	font-size: 20px;
+	font-weight: 900;
+	padding: 5px 0 5px 0;
+}
+
+.proj-todo-btn:hover {
+	background-color: $light-green;
+}
+
+.todo-div {
+	background-color: $dark-gray;
+}
+
+.todo-row-info {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	align-items: center;
+	justify-items: center;
+	background-color: black;
+	padding: 10px 0 10px 0;
+	margin-bottom: 5px;
+}
+
+.todo-row {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	align-items: center;
+	justify-items: center;
+	margin-bottom: 10px;
+}
+
+// New project form
+#np-hide {
+	display: none;
+}
+
+#np-div {
+	display: grid;
+	align-items: center;
+	justify-items: center;
+	width: 35%;
+	background-color: $dark-gray;
+
+	position: fixed; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#np-title-div {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	align-items: center;
+	justify-items: center;
+	background-color: $blue;
+	width: 100%;
+}
+
+#np-title {
+	font-size: 22px;
+	font-weight: 900;
+	width: 100%;
+	text-align: center;
+	padding: 10px 0 10px 0;
+}
+
+#np-close {
+	font-size: 30px;
+	justify-self: end;
+	margin-right: 20px;
+}
+
+#np-close:hover {
+	color: $red;
+}
+
+#np-input {
+	width: 90%;
+	margin: 20px 0 30px 0;
+	background-color: $light-gray;
+	border: 0px;
+	height: 30px;
+	font-size: 30px;
+	padding: 5px 0 5px 10px;
+}
+
+#np-submit {
+	background-color: $green;
+	width: 100%;
+	padding: 5px 0 5px 0;
+	font-size: 25px;
+	font-weight: 900;
+}
+
+#np-submit:hover {
+	background-color: $light-green;
+}

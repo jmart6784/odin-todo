@@ -1,0 +1,240 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+h1, h2, h3, h4, h5, h6, span, div, a, p, button, input {
+  font-family: 'Rajdhani', sans-serif;
+  color: white;
+}
+
+body {
+  background-color: #272727;
+}
+
+#navbar {
+  background-color: #006b59;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+#nav-title {
+  padding: 10px 0 10px 30px;
+  font-size: 35px;
+}
+
+#nav-btn {
+  background-color: #009c22;
+  width: 30%;
+  font-size: 25px;
+  font-weight: 900;
+  border: 0px;
+  height: 70%;
+  -ms-grid-column-align: end;
+      justify-self: end;
+  margin-right: 30px;
+}
+
+#nav-btn:hover {
+  background-color: #00c52b;
+}
+
+#todo-grid {
+  border: 1px solid blue;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  -webkit-column-gap: 30px;
+          column-gap: 30px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  margin-top: 100px;
+}
+
+.proj-div {
+  border: 1px solid white;
+  background-color: black;
+  width: 100%;
+}
+
+.proj-name {
+  text-align: center;
+  padding: 10px 0 10px 0;
+  background-color: #006b59;
+}
+
+.proj-todo-btn {
+  background-color: #009c22;
+  border: 0px;
+  width: 100%;
+  font-size: 20px;
+  font-weight: 900;
+  padding: 5px 0 5px 0;
+}
+
+.proj-todo-btn:hover {
+  background-color: #00c52b;
+}
+
+.todo-div {
+  background-color: #181818;
+}
+
+.todo-row-info {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  background-color: black;
+  padding: 10px 0 10px 0;
+  margin-bottom: 5px;
+}
+
+.todo-row {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  margin-bottom: 10px;
+}
+
+#np-hide {
+  display: none;
+}
+
+#np-div {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  width: 35%;
+  background-color: #181818;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+#np-title-div {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  background-color: #006b59;
+  width: 100%;
+}
+
+#np-title {
+  font-size: 22px;
+  font-weight: 900;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0 10px 0;
+}
+
+#np-close {
+  font-size: 30px;
+  -ms-grid-column-align: end;
+      justify-self: end;
+  margin-right: 20px;
+}
+
+#np-close:hover {
+  color: maroon;
+}
+
+#np-input {
+  width: 90%;
+  margin: 20px 0 30px 0;
+  background-color: #3b3b3b;
+  border: 0px;
+  height: 30px;
+  font-size: 30px;
+  padding: 5px 0 5px 10px;
+}
+
+#np-submit {
+  background-color: #009c22;
+  width: 100%;
+  padding: 5px 0 5px 0;
+  font-size: 25px;
+  font-weight: 900;
+}
+
+#np-submit:hover {
+  background-color: #00c52b;
+}
+/*# sourceMappingURL=styles.css.map */
