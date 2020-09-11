@@ -75,13 +75,20 @@ let render = () => {
     projDiv.appendChild(pName);
 
     // Add new todo button
-    let pButton = document.createElement("button");
-    let pButtonTxt = document.createTextNode("+Add todo");
+    // let pButton = document.createElement("button");
+    // let pButtonTxt = document.createTextNode("+Add todo");
 
-    pButton.className = "proj-todo-btn";
+    // pButton.className = "proj-todo-btn";
 
-    pButton.appendChild(pButtonTxt);
-    projDiv.appendChild(pButton);
+    // pButton.appendChild(pButtonTxt);
+    // projDiv.appendChild(pButton);
+
+    // // Add onClick() event to button
+    // pButton.onclick = function() {
+    //   console.log(project.getName());
+    //   newTodo.start();
+    //   console.log("PAST");
+    // };
 
     // Create Div for every todo's
     let todoDiv = document.createElement("div");
@@ -217,8 +224,11 @@ let newProject = (() => {
 
     newProjectSubmit.addEventListener("click", function() {
       if ((!newProjectInput.value.trim().length) || newProjectInput.value.length === 0) {
-        console.log("empty");
         flashMsg("error", "Project name cannot be empty");
+        newProjectInput.value = "";
+      } else if (!(newProjectInput.value.length <= 30)) {
+        flashMsg("error", "Project name cannot be longer than 30 characters");
+        newProjectInput.value = "";
       } else {
         let newProj = Project(newProjectInput.value, []);
         projects.push(newProj);
@@ -235,3 +245,68 @@ let newProject = (() => {
 })();
 
 newProject.start();
+
+let newTodo = (() => {
+  let start = () => {
+    let form = document.getElementById("new-td-hide");
+    let newTdBtn = document.getElementById("new-todo-btn");
+    let closeForm = document.getElementById("new-td-close");
+    let submitBtn = document.getElementById("new-td-submit");
+    let title = document.getElementById("td-title");
+    let description = document.getElementById("td-description");
+    let priority = document.getElementById("td-priority");
+    let date = document.getElementById("date-input");
+    let dropdown = document.getElementById("proj-select");
+
+    // Create drop down options based on projects
+    projects.forEach( project => {
+      let newOption = document.createElement("option");
+      let optionTxt = document.createTextNode(project.getName());
+      
+      newOption.appendChild(optionTxt);
+      newOption.setAttribute("value", project.getName());
+      dropdown.appendChild(newOption);
+    });
+
+    // Show new todo form when button is pressed
+    newTdBtn.addEventListener("click", function() {
+      form.style.display = "block";
+    });
+
+    // Close todo form when button is pressed
+    closeForm.addEventListener("click", function() {
+      form.style.display = "none";
+    });
+
+    // Submit todo form
+    submitBtn.addEventListener("click", function() {
+      console.log(`TITLE: ${title.value}, DESCRIPTION: ${description.value}, PRIORITY: ${priority.value}, DATE: ${date.value}, Dropdown: ${dropdown.value}`);
+
+      // Split date from input and make the results integers
+      let splitDate = date.value.split("-");
+      console.log(splitDate);
+      let month = parseInt(splitDate[1]);
+      let day = parseInt(splitDate[2]);
+      let year = parseInt(splitDate[0]);
+
+      // let matches = [];
+
+      projects.forEach( project => {
+        if (project.getName() === dropdown.value) {
+          console.log(project);
+          console.log(project.getName() + " " + dropdown.value);
+          let newTodo =  Todo(title.value, description.value, format(new Date(year, month, year), 'MM-dd-yyyy'), parseInt(priority.value));
+
+          project.addTodo(newTodo);
+          render();
+        };
+      });
+    });
+  };
+
+  return {
+    start
+  }
+})();
+
+newTodo.start();

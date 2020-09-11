@@ -51,11 +51,13 @@ $light-gray: rgb(59, 59, 59);
 $gray: rgb(39, 39, 39);
 $dark-gray: rgb(24, 24, 24);
 $blue: rgb(0, 107, 89);
+$blue2: rgb(0, 68, 100);
+$blue2-light: rgb(0, 88, 129);
 $green: rgb(0, 156, 34);
 $light-green: rgb(0, 197, 43);
 $red: rgb(128, 0, 0);
 
-h1, h2, h3, h4, h5, h6, span, div, a, p, button, input {
+h1, h2, h3, h4, h5, h6, span, div, a, p, button, input, select, option {
 	font-family: 'Rajdhani', sans-serif;
   color: white;
 }
@@ -81,7 +83,7 @@ body {
 #navbar {
 	background-color: $blue;
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 2.5fr 1fr;
 	align-items: center;
 	position: fixed;
 	top: 0;
@@ -93,15 +95,40 @@ body {
 	font-size: 35px;
 }
 
-#nav-btn {
-	background-color: $green;
-	width: 30%;
-	font-size: 25px;
+#nav-btn-div {
+	justify-self: end;
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 50px;
+	align-items: center;
+	justify-items: end;
+}
+
+#new-todo-btn {
+	background-color: $blue2;
+	width: 100%;
+	font-size: 20px;
 	font-weight: 900;
 	border: 0px;
-	height: 70%;
+	height: 100%;
 	justify-self: end;
-	margin-right: 30px;
+	padding: 5px 0 5px 0;
+}
+
+#new-todo-btn:hover {
+	background-color: $blue2-light;
+}
+
+#nav-btn {
+	background-color: $green;
+	width: 100%;
+	font-size: 20px;
+	font-weight: 900;
+	border: 0px;
+	height: 100%;
+	margin-right: 25px;
+	padding: 5px 0 5px 0;
 }
 
 #nav-btn:hover {
@@ -122,7 +149,6 @@ body {
 	align-items: center;
 	justify-items: center;
 	margin-top: 105px;
-	margin-bottom: 1000px;
 }
 
 .proj-div {
@@ -136,18 +162,18 @@ body {
 	background-color: $blue;
 }
 
-.proj-todo-btn {
-	background-color: $green;
-	border: 0px;
-	width: 100%;
-	font-size: 20px;
-	font-weight: 900;
-	padding: 5px 0 5px 0;
-}
+// .proj-todo-btn {
+// 	background-color: $green;
+// 	border: 0px;
+// 	width: 100%;
+// 	font-size: 20px;
+// 	font-weight: 900;
+// 	padding: 5px 0 5px 0;
+// }
 
-.proj-todo-btn:hover {
-	background-color: $light-green;
-}
+// .proj-todo-btn:hover {
+// 	background-color: $light-green;
+// }
 
 .todo-div {
 	background-color: $dark-gray;
@@ -182,7 +208,6 @@ body {
 	justify-items: center;
 	width: 35%;
 	background-color: $dark-gray;
-
 	position: fixed; 
   top: 50%;
   left: 50%;
@@ -210,6 +235,7 @@ body {
 	font-size: 30px;
 	justify-self: end;
 	margin-right: 20px;
+	text-decoration: none;
 }
 
 #np-close:hover {
@@ -237,4 +263,105 @@ body {
 
 #np-submit:hover {
 	background-color: $light-green;
+}
+
+// New todo form
+#new-td-hide {
+	display: none;
+}
+
+#new-td {
+	display: grid;
+	align-items: center;
+	justify-items: center;
+	width: 35%;
+	background-color: $dark-gray;
+	position: fixed; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#new-td-div {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	align-items: center;
+	justify-items: center;
+	background-color: $blue;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+#new-td-close {
+	font-size: 30px;
+	justify-self: end;
+	margin-right: 20px;
+	text-decoration: none;
+}
+
+#new-td-close:hover {
+	color: $red;
+}
+
+#new-td-title {
+	font-weight: 900;
+	width: 100%;
+	text-align: center;
+	padding: 10px 0 10px 0;
+}
+
+.new-td-label {
+	margin: 5px 0 5px 0;
+}
+
+.td-grid1 {
+	display: grid;
+	grid-template-columns: 1fr 1.5fr;
+}
+
+.td-td-grid {
+	display: grid;
+	align-items: center;
+	justify-items: center;
+	width: 100%;
+}
+
+#date-input {
+	background-color: $light-gray;
+	border: 0px;
+	width: 80%;
+	height: 30px;
+}
+
+.td-input {
+	background-color: $light-gray;
+	border: 0px;
+	width: 80%;
+	height: 30px;
+	font-size: 30px;
+	padding: 5px;
+}
+
+#new-td-submit {
+	background-color: $green;
+	width: 100%;
+	padding: 5px 0 5px 0;
+	font-size: 25px;
+	font-weight: 900;
+	border: 0px;
+	margin-top: 20px;
+}
+
+#new-td-submit:hover {
+	background-color: $light-green;
+}
+
+#proj-select {
+	background-color: $light-gray;
+	width: 80%;
+	height: 40px;
+	padding: 5px 0 5px 0;
+	font-size: 20px;
+	margin: 10px 0 10px 0;
+	border: 0px;
 }

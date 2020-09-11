@@ -50,7 +50,7 @@ table {
   border-spacing: 0;
 }
 
-h1, h2, h3, h4, h5, h6, span, div, a, p, button, input {
+h1, h2, h3, h4, h5, h6, span, div, a, p, button, input, select, option {
   font-family: 'Rajdhani', sans-serif;
   color: white;
 }
@@ -77,8 +77,8 @@ body {
   background-color: #006b59;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1fr;
-      grid-template-columns: 1fr 1fr;
+  -ms-grid-columns: 2.5fr 1fr;
+      grid-template-columns: 2.5fr 1fr;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -92,16 +92,47 @@ body {
   font-size: 35px;
 }
 
-#nav-btn {
-  background-color: #009c22;
-  width: 30%;
-  font-size: 25px;
-  font-weight: 900;
-  border: 0px;
-  height: 70%;
+#nav-btn-div {
   -ms-grid-column-align: end;
       justify-self: end;
-  margin-right: 30px;
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  -webkit-column-gap: 50px;
+          column-gap: 50px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: end;
+}
+
+#new-todo-btn {
+  background-color: #004464;
+  width: 100%;
+  font-size: 20px;
+  font-weight: 900;
+  border: 0px;
+  height: 100%;
+  -ms-grid-column-align: end;
+      justify-self: end;
+  padding: 5px 0 5px 0;
+}
+
+#new-todo-btn:hover {
+  background-color: #005881;
+}
+
+#nav-btn {
+  background-color: #009c22;
+  width: 100%;
+  font-size: 20px;
+  font-weight: 900;
+  border: 0px;
+  height: 100%;
+  margin-right: 25px;
+  padding: 5px 0 5px 0;
 }
 
 #nav-btn:hover {
@@ -123,7 +154,6 @@ body {
           align-items: center;
   justify-items: center;
   margin-top: 105px;
-  margin-bottom: 1000px;
 }
 
 .proj-div {
@@ -135,19 +165,6 @@ body {
   text-align: center;
   padding: 10px 0 10px 0;
   background-color: #006b59;
-}
-
-.proj-todo-btn {
-  background-color: #009c22;
-  border: 0px;
-  width: 100%;
-  font-size: 20px;
-  font-weight: 900;
-  padding: 5px 0 5px 0;
-}
-
-.proj-todo-btn:hover {
-  background-color: #00c52b;
 }
 
 .todo-div {
@@ -226,6 +243,7 @@ body {
   -ms-grid-column-align: end;
       justify-self: end;
   margin-right: 20px;
+  text-decoration: none;
 }
 
 #np-close:hover {
@@ -253,5 +271,119 @@ body {
 
 #np-submit:hover {
   background-color: #00c52b;
+}
+
+#new-td-hide {
+  display: none;
+}
+
+#new-td {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  width: 35%;
+  background-color: #181818;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+#new-td-div {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  background-color: #006b59;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#new-td-close {
+  font-size: 30px;
+  -ms-grid-column-align: end;
+      justify-self: end;
+  margin-right: 20px;
+  text-decoration: none;
+}
+
+#new-td-close:hover {
+  color: maroon;
+}
+
+#new-td-title {
+  font-weight: 900;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0 10px 0;
+}
+
+.new-td-label {
+  margin: 5px 0 5px 0;
+}
+
+.td-grid1 {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1.5fr;
+      grid-template-columns: 1fr 1.5fr;
+}
+
+.td-td-grid {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  width: 100%;
+}
+
+#date-input {
+  background-color: #3b3b3b;
+  border: 0px;
+  width: 80%;
+  height: 30px;
+}
+
+.td-input {
+  background-color: #3b3b3b;
+  border: 0px;
+  width: 80%;
+  height: 30px;
+  font-size: 30px;
+  padding: 5px;
+}
+
+#new-td-submit {
+  background-color: #009c22;
+  width: 100%;
+  padding: 5px 0 5px 0;
+  font-size: 25px;
+  font-weight: 900;
+  border: 0px;
+  margin-top: 20px;
+}
+
+#new-td-submit:hover {
+  background-color: #00c52b;
+}
+
+#proj-select {
+  background-color: #3b3b3b;
+  width: 80%;
+  height: 40px;
+  padding: 5px 0 5px 0;
+  font-size: 20px;
+  margin: 10px 0 10px 0;
+  border: 0px;
 }
 /*# sourceMappingURL=styles.css.map */

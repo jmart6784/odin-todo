@@ -13,7 +13,10 @@
 
   <div id="navbar">
     <h1 id="nav-title">Odin Todo's</h1>
-    <button id="nav-btn">+ New Project</button>
+    <div id="nav-btn-div">
+      <button id="new-todo-btn">+ New Todo</button>
+      <button id="nav-btn">+ New Project</button>
+    </div>
   </div>
 
   <div id="container">
@@ -27,13 +30,54 @@
   
         <p id="np-title">Project Name:</p>
   
-        <div id="np-close">X</div>
+        <a href="#" id="np-close">X</a>
       </div>
   
       <input id="np-input" type="text" placeholder="Name your project...">
       <button id="np-submit">Create</button>
     </div>
   </div>
+
+  <div id="new-td-hide">
+    <div id="new-td">
+      <div id="new-td-div">
+        <div></div>
+        <h1 id="new-td-title">New Todo</h1>
+        <a href="#" id="new-td-close">X</a>
+      </div>
+  
+      <div class="td-grid1">
+        <div class="td-td-grid">
+          <h2 class="new-td-label">Title</h2>
+          <input id="td-title" class="td-input" type="text">
+        </div>
+  
+        <div class="td-td-grid">
+          <h2 class="new-td-label">Description</h2>
+          <input id="td-description" class="td-input" type="text">
+        </div>
+      </div>
+  
+      <div class="td-grid1">
+        <div class="td-td-grid">
+          <h2 class="new-td-label">Priority (Scale 1-10)</h2>
+          <input id="td-priority" class="td-input" type="number" min="1" max="10">
+        </div>
+  
+        <div class="td-td-grid">
+          <h2 class="new-td-label">Date</h2>
+          <input type="date" id="date-input" class="td-input">
+        </div>
+      </div>
+
+      <select id="proj-select">
+        <option value="">Select Project...</option>
+      </select>
+  
+      <button id="new-td-submit">Create</button>
+    </div>
+  </div>
+
   
   <script src="main.js"></script>
 </body>
