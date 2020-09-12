@@ -214,6 +214,9 @@ let newProject = (() => {
 
     // Show form when new project is clicked
     newProjectBtn.addEventListener("click", function() {
+      // Hide new todo form
+      document.getElementById("new-td-hide").style.display = "none"
+
       newProjectForm.style.display = "block";
     });
 
@@ -270,6 +273,9 @@ let newTodo = (() => {
 
     // Show new todo form when button is pressed
     newTdBtn.addEventListener("click", function() {
+      // Hide New Project form
+      document.getElementById("np-hide").style.display = "none"
+
       form.style.display = "block";
     });
 
@@ -284,23 +290,36 @@ let newTodo = (() => {
 
       // Split date from input and make the results integers
       let splitDate = date.value.split("-");
-      console.log(splitDate);
       let month = parseInt(splitDate[1]);
       let day = parseInt(splitDate[2]);
       let year = parseInt(splitDate[0]);
 
-      // let matches = [];
+      console.log(title.value.length);
+      console.log(!title.value.trim().length);
 
-      projects.forEach( project => {
-        if (project.getName() === dropdown.value) {
-          console.log(project);
-          console.log(project.getName() + " " + dropdown.value);
-          let newTodo =  Todo(title.value, description.value, format(new Date(year, month, year), 'MM-dd-yyyy'), parseInt(priority.value));
+      if (
+        !(title.value.length <= 20) || 
+        !(description.value.length <= 100) || 
+        !(parseInt(priority.value) >= 1) || 
+        !(parseInt(priority.value) <= 10) || 
+        !title.value.trim().length || 
+        !description.value.trim().length || 
+        !priority.value.trim().length || 
+        !date.value.trim().length || 
+        !dropdown.value.trim().length
+      ) {
+        flashMsg("error", "One or more fields are empty or over the character limit");
+      } else {
+        projects.forEach( project => {
+          if (project.getName() === dropdown.value) {
+            let newTodo =  Todo(title.value, description.value, format(new Date(year, month, day), 'MM-dd-yyyy'), parseInt(priority.value));
+  
+            project.addTodo(newTodo);
+            render();
+          };
+        });        
+      };
 
-          project.addTodo(newTodo);
-          render();
-        };
-      });
     });
   };
 
