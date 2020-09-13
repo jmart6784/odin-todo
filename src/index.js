@@ -6,6 +6,7 @@ let projects = [];
 let Project = (name, todo) => {
   let getName = () => name;
   let getTodo = () => todo;
+  let clearTodo = () => todo = [];
 
   let addTodo = (newTodo) => {
     todo.push(newTodo);
@@ -14,7 +15,8 @@ let Project = (name, todo) => {
   return {
     getName,
     getTodo,
-    addTodo
+    addTodo,
+    clearTodo
   }
 };
 
@@ -52,7 +54,7 @@ all.addTodo(todo3);
 schoolWork.addTodo(todo1);
 schoolWork.addTodo(todo2);
 
-
+// Generates updated html based on projects array
 let render = () => {
   // Remove all previous renders so there are no accidental duplicates
   document.querySelectorAll(".proj-div").forEach( project => project.remove());
@@ -74,22 +76,6 @@ let render = () => {
     pName.appendChild(pNameTxt);
     projDiv.appendChild(pName);
 
-    // Add new todo button
-    // let pButton = document.createElement("button");
-    // let pButtonTxt = document.createTextNode("+Add todo");
-
-    // pButton.className = "proj-todo-btn";
-
-    // pButton.appendChild(pButtonTxt);
-    // projDiv.appendChild(pButton);
-
-    // // Add onClick() event to button
-    // pButton.onclick = function() {
-    //   console.log(project.getName());
-    //   newTodo.start();
-    //   console.log("PAST");
-    // };
-
     // Create Div for every todo's
     let todoDiv = document.createElement("div");
     todoDiv.className = "todo-div";
@@ -102,7 +88,7 @@ let render = () => {
       todoRowInfo.className = "todo-row-info";
       todoDiv.appendChild(todoRowInfo);
 
-      // Add todo Title
+      // Add todo Title label
       let tdTitleInfo = document.createElement("h3");
       let tdTitleTxtInfo = document.createTextNode("Title");
 
@@ -111,7 +97,7 @@ let render = () => {
       tdTitleInfo.appendChild(tdTitleTxtInfo);
       todoRowInfo.appendChild(tdTitleInfo);
 
-      // Add todo Description
+      // Add todo Description label
       let tdDescInfo = document.createElement("h3");
       let tdDescTxtInfo = document.createTextNode("Description");
 
@@ -120,7 +106,7 @@ let render = () => {
       tdDescInfo.appendChild(tdDescTxtInfo);
       todoRowInfo.appendChild(tdDescInfo);
 
-      // Add todo Date
+      // Add todo Date label
       let tdDateInfo = document.createElement("h3");
       let tdDateTxtInfo = document.createTextNode("Date");
 
@@ -129,7 +115,7 @@ let render = () => {
       tdDateInfo.appendChild(tdDateTxtInfo);
       todoRowInfo.appendChild(tdDateInfo);
 
-      // Add todo Priority
+      // Add todo Priority label
       let tdPriorityInfo = document.createElement("h3");
       let tdPriorityTxtInfo = document.createTextNode("Priority");
 
@@ -137,6 +123,15 @@ let render = () => {
 
       tdPriorityInfo.appendChild(tdPriorityTxtInfo);
       todoRowInfo.appendChild(tdPriorityInfo);
+
+      // Add todo delete label
+      let tdDelInfo = document.createElement("h3");
+      let tdDelTxtInfo = document.createTextNode("Delete");
+
+      tdDelInfo.className = "td-priority-info";
+
+      tdDelInfo.appendChild(tdDelTxtInfo);
+      todoRowInfo.appendChild(tdDelInfo);
 
       // For each todo in project generate html
       project.getTodo().forEach( todo => {
@@ -180,6 +175,36 @@ let render = () => {
 
         tdPriority.appendChild(tdPriorityTxt);
         todoRow.appendChild(tdPriority);
+
+        // Add delete todo button
+        let deleteBtn = document.createElement("button");
+        let deleteBtnTxt = document.createTextNode("Delete");
+
+        deleteBtn.className = "delete-todo-btn";
+
+        deleteBtn.appendChild(deleteBtnTxt);
+        todoRow.appendChild(deleteBtn);
+
+        // Add onClick() event to button
+        deleteBtn.onclick = function() {
+          let matches = [];
+
+          project.getTodo().find( td => {
+            if (td === todo) {
+              null
+            } else {
+              matches.push(td);
+            }
+          });
+
+          project.clearTodo();
+          
+          matches.forEach( match => {
+            project.addTodo(match);
+          });
+
+          render();
+        };
       });
     };
   });
@@ -286,17 +311,13 @@ let newTodo = (() => {
 
     // Submit todo form
     submitBtn.addEventListener("click", function() {
-      console.log(`TITLE: ${title.value}, DESCRIPTION: ${description.value}, PRIORITY: ${priority.value}, DATE: ${date.value}, Dropdown: ${dropdown.value}`);
-
       // Split date from input and make the results integers
       let splitDate = date.value.split("-");
       let month = parseInt(splitDate[1]);
       let day = parseInt(splitDate[2]);
       let year = parseInt(splitDate[0]);
 
-      console.log(title.value.length);
-      console.log(!title.value.trim().length);
-
+      // Form validations with flash message
       if (
         !(title.value.length <= 20) || 
         !(description.value.length <= 100) || 
@@ -308,18 +329,28 @@ let newTodo = (() => {
         !date.value.trim().length || 
         !dropdown.value.trim().length
       ) {
+        title.value = "";
+        description.value = "";
+        priority.value = "";
+        date.value = "";
+        dropdown.value = "";
         flashMsg("error", "One or more fields are empty or over the character limit");
       } else {
+        // Loop through projects to find a match from dropdown menu and add todo
         projects.forEach( project => {
           if (project.getName() === dropdown.value) {
             let newTodo =  Todo(title.value, description.value, format(new Date(year, month, day), 'MM-dd-yyyy'), parseInt(priority.value));
   
             project.addTodo(newTodo);
+            title.value = "";
+            description.value = "";
+            priority.value = "";
+            date.value = "";
+            dropdown.value = "";
             render();
           };
-        });        
+        });
       };
-
     });
   };
 

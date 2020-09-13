@@ -156,6 +156,18 @@ body {
   margin-top: 105px;
 }
 
+.delete-todo-btn {
+  background-color: maroon;
+  width: 90%;
+  border: 0px;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.delete-todo-btn:hover {
+  background-color: #a10000;
+}
+
 .proj-div {
   background-color: #181818;
   width: 100%;
@@ -174,8 +186,8 @@ body {
 .todo-row-info {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1fr 1fr 1fr;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -188,8 +200,8 @@ body {
 .todo-row {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1fr 1fr 1fr;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
