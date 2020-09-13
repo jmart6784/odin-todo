@@ -197,6 +197,23 @@ body {
 	margin-bottom: 10px;
 }
 
+.sd-btn {
+	background-color: $blue2;
+	border: 0px;
+	font-size: 20px;
+	font-weight: 900;
+	width: 90%;
+}
+
+.td-desc {
+	text-align: center;
+	width: 100%;
+	background-color: black;
+	grid-column: 1 / -1;
+	margin-top: 10px;
+	padding: 10px 0 10px 0;
+}
+
 // New project form
 #np-hide {
 	display: none;

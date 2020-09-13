@@ -97,15 +97,6 @@ let render = () => {
       tdTitleInfo.appendChild(tdTitleTxtInfo);
       todoRowInfo.appendChild(tdTitleInfo);
 
-      // Add todo Description label
-      let tdDescInfo = document.createElement("h3");
-      let tdDescTxtInfo = document.createTextNode("Description");
-
-      tdDescInfo.className = "td-desc-info";
-
-      tdDescInfo.appendChild(tdDescTxtInfo);
-      todoRowInfo.appendChild(tdDescInfo);
-
       // Add todo Date label
       let tdDateInfo = document.createElement("h3");
       let tdDateTxtInfo = document.createTextNode("Date");
@@ -124,6 +115,15 @@ let render = () => {
       tdPriorityInfo.appendChild(tdPriorityTxtInfo);
       todoRowInfo.appendChild(tdPriorityInfo);
 
+      // Add Show label
+      let tdshowInfo = document.createElement("h3");
+      let tdshowTxtInfo = document.createTextNode("Show");
+
+      tdshowInfo.className = "td-priority-info";
+
+      tdshowInfo.appendChild(tdshowTxtInfo);
+      todoRowInfo.appendChild(tdshowInfo);
+
       // Add todo delete label
       let tdDelInfo = document.createElement("h3");
       let tdDelTxtInfo = document.createTextNode("Delete");
@@ -133,8 +133,11 @@ let render = () => {
       tdDelInfo.appendChild(tdDelTxtInfo);
       todoRowInfo.appendChild(tdDelInfo);
 
+      let todoID = 0;
+
       // For each todo in project generate html
       project.getTodo().forEach( todo => {
+        todoID++;
         // Create Div for every todo's
         let todoRow = document.createElement("div");
         todoRow.className = "todo-row";
@@ -148,15 +151,6 @@ let render = () => {
 
         tdTitle.appendChild(tdTitleTxt);
         todoRow.appendChild(tdTitle);
-
-        // Add todo Description
-        let tdDesc = document.createElement("h3");
-        let tdDescTxt = document.createTextNode(todo.getDesc());
-
-        tdDesc.className = "td-desc";
-
-        tdDesc.appendChild(tdDescTxt);
-        todoRow.appendChild(tdDesc);
 
         // Add todo Date
         let tdDate = document.createElement("h3");
@@ -176,6 +170,15 @@ let render = () => {
         tdPriority.appendChild(tdPriorityTxt);
         todoRow.appendChild(tdPriority);
 
+        // Add Show description button
+        let sdBtn = document.createElement("button");
+        let sdBtnTxt = document.createTextNode("Show");
+
+        sdBtn.className = "sd-btn";
+
+        sdBtn.appendChild(sdBtnTxt);
+        todoRow.appendChild(sdBtn);
+
         // Add delete todo button
         let deleteBtn = document.createElement("button");
         let deleteBtnTxt = document.createTextNode("Delete");
@@ -185,7 +188,7 @@ let render = () => {
         deleteBtn.appendChild(deleteBtnTxt);
         todoRow.appendChild(deleteBtn);
 
-        // Add onClick() event to button
+        // Add onClick() event to delete button
         deleteBtn.onclick = function() {
           let matches = [];
 
@@ -204,6 +207,41 @@ let render = () => {
           });
 
           render();
+        };
+
+        // Add todo Description and create unique id for hiding and showing descriptions
+        let tdDesc = document.createElement("h3");
+        let tdDescTxt = document.createTextNode(todo.getDesc());
+
+        let nameAry = [];
+        let splitName = project.getName().split(" ");
+
+        splitName.forEach(part => {
+          let lcName = part.toLowerCase();
+          nameAry.push(lcName);
+        });
+      
+        let joinedName = nameAry.join("-");
+
+        tdDesc.className = "td-desc";
+        tdDesc.id = `description-${todoID}-${joinedName}`;
+
+        tdDesc.appendChild(tdDescTxt);
+        todoRow.appendChild(tdDesc);
+        // Hide description by default
+        tdDesc.style.display = "none";
+
+        // Add onClick() event to show button
+        sdBtn.onclick = function() {
+          let desc = document.getElementById(`${tdDesc.id}`);
+
+          if (desc.style.display === "none") {
+            sdBtn.textContent = "Hide";
+            desc.style.display = "block";
+          } else if (desc.style.display === "block") {
+            sdBtn.textContent = "Show";
+            desc.style.display = "none";
+          };
         };
       });
     };
