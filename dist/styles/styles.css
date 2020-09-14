@@ -140,7 +140,6 @@ body {
 }
 
 #todo-grid {
-  border: 1px solid blue;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr 1fr 1fr;
@@ -438,5 +437,11 @@ body {
   font-size: 20px;
   margin: 10px 0 10px 0;
   border: 0px;
+}
+
+#e-title {
+  grid-column: 1 / -1;
+  font-size: 60px;
+  margin-top: 150px;
 }
 /*# sourceMappingURL=styles.css.map */

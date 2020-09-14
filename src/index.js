@@ -20,12 +20,6 @@ let Project = (name, todo) => {
   }
 };
 
-let all = Project("All", []);
-let schoolWork = Project("School Work", []);
-let chores = Project("Chores", []);
-
-projects.push(all, schoolWork, chores);
-
 // Factory function for todo's
 let Todo = (title, description, dueDate, priority) => {
   let getTitle = () => title;
@@ -40,261 +34,6 @@ let Todo = (title, description, dueDate, priority) => {
     getPriority
   }
 };
-
-let todo1 = Todo("Default Title1", "Default description1", format(new Date(2020, 9, 14), 'MM-dd-yyyy'), 8);
-
-let todo2 = Todo("Default Title2", "Default description2", format(new Date(2020, 9, 15), 'MM-dd-yyyy'), 9);
-
-let todo3 = Todo("Default Title3", "Default description3", format(new Date(2020, 9, 16), 'MM-dd-yyyy'), 10);
-
-all.addTodo(todo1);
-all.addTodo(todo2);
-all.addTodo(todo3);
-
-schoolWork.addTodo(todo1);
-schoolWork.addTodo(todo2);
-
-// Generates updated html based on projects array
-let render = () => {
-  // Remove all previous renders so there are no accidental duplicates
-  document.querySelectorAll(".proj-div").forEach( project => project.remove());
-
-  let gridDiv = document.getElementById("todo-grid");
-
-  projects.forEach( project => {
-    // Create Div for every project
-    let projDiv = document.createElement("div");
-    projDiv.className = "proj-div";
-    gridDiv.appendChild(projDiv);
-
-    // div for containing a 3 column grid
-    let grid3Div = document.createElement("div");
-    grid3Div.className = "grid3-div";
-    projDiv.appendChild(grid3Div);
-
-    // Empty div to fill free space on grid
-    let emptyDiv = document.createElement("div");
-    grid3Div.appendChild(emptyDiv);
-
-    // Add name
-    let pName = document.createElement("h2");
-    let pNameTxt = document.createTextNode(project.getName());
-
-    pName.className = "proj-name";
-
-    pName.appendChild(pNameTxt);
-    grid3Div.appendChild(pName);
-
-    // Add delete project button
-    let projDelBtn = document.createElement("button");
-    let projDelBtnTxt = document.createTextNode("Delete");
-
-    projDelBtn.className = "delete-proj-btn";
-
-    projDelBtn.appendChild(projDelBtnTxt);
-    grid3Div.appendChild(projDelBtn);
-
-    // Add onClick() event to delete button
-    projDelBtn.onclick = function() {
-      let confirmDelete = confirm("Are you sure you want to delete this project?");
-
-      if (confirmDelete === true) {
-        let nonMatches = [];
-
-        projects.find( proj => {
-          if (proj === project) {
-            null
-          } else {
-            // Push all non-matches into array
-            nonMatches.push(proj);
-          }
-        });
-        
-        // Delete all projects
-        projects = [];
-        
-        // Push all non-matches into project array 
-        nonMatches.forEach( nm => {
-          projects.push(nm);
-        });
-  
-        render();
-      };
-    };
-
-    // Create Div for every todo's
-    let todoDiv = document.createElement("div");
-    todoDiv.className = "todo-div";
-    projDiv.appendChild(todoDiv);
-
-    // Adds info bar and todo's only if the project contains any todo's
-    if (project.getTodo().length > 0) {
-      // Add info label div
-      let todoRowInfo = document.createElement("div");
-      todoRowInfo.className = "todo-row-info";
-      todoDiv.appendChild(todoRowInfo);
-
-      // Add todo Title label
-      let tdTitleInfo = document.createElement("h3");
-      let tdTitleTxtInfo = document.createTextNode("Title");
-
-      tdTitleInfo.className = "td-title-info";
-
-      tdTitleInfo.appendChild(tdTitleTxtInfo);
-      todoRowInfo.appendChild(tdTitleInfo);
-
-      // Add todo Date label
-      let tdDateInfo = document.createElement("h3");
-      let tdDateTxtInfo = document.createTextNode("Date");
-
-      tdDateInfo.className = "td-date-info";
-
-      tdDateInfo.appendChild(tdDateTxtInfo);
-      todoRowInfo.appendChild(tdDateInfo);
-
-      // Add todo Priority label
-      let tdPriorityInfo = document.createElement("h3");
-      let tdPriorityTxtInfo = document.createTextNode("Priority");
-
-      tdPriorityInfo.className = "td-priority-info";
-
-      tdPriorityInfo.appendChild(tdPriorityTxtInfo);
-      todoRowInfo.appendChild(tdPriorityInfo);
-
-      // Add Show label
-      let tdshowInfo = document.createElement("h3");
-      let tdshowTxtInfo = document.createTextNode("Show");
-
-      tdshowInfo.className = "td-priority-info";
-
-      tdshowInfo.appendChild(tdshowTxtInfo);
-      todoRowInfo.appendChild(tdshowInfo);
-
-      // Add todo delete label
-      let tdDelInfo = document.createElement("h3");
-      let tdDelTxtInfo = document.createTextNode("Delete");
-
-      tdDelInfo.className = "td-priority-info";
-
-      tdDelInfo.appendChild(tdDelTxtInfo);
-      todoRowInfo.appendChild(tdDelInfo);
-
-      let todoID = 0;
-
-      // For each todo in project generate html
-      project.getTodo().forEach( todo => {
-        todoID++;
-        // Create Div for every todo's
-        let todoRow = document.createElement("div");
-        todoRow.className = "todo-row";
-        todoDiv.appendChild(todoRow);
-
-        // Add todo Title
-        let tdTitle = document.createElement("h3");
-        let tdTitleTxt = document.createTextNode(todo.getTitle());
-
-        tdTitle.className = "td-title";
-
-        tdTitle.appendChild(tdTitleTxt);
-        todoRow.appendChild(tdTitle);
-
-        // Add todo Date
-        let tdDate = document.createElement("h3");
-        let tdDateTxt = document.createTextNode(todo.getDate());
-
-        tdDate.className = "td-date";
-
-        tdDate.appendChild(tdDateTxt);
-        todoRow.appendChild(tdDate);
-
-        // Add todo Priority
-        let tdPriority = document.createElement("h3");
-        let tdPriorityTxt = document.createTextNode(todo.getPriority());
-
-        tdPriority.className = "td-priority";
-
-        tdPriority.appendChild(tdPriorityTxt);
-        todoRow.appendChild(tdPriority);
-
-        // Add Show description button
-        let sdBtn = document.createElement("button");
-        let sdBtnTxt = document.createTextNode("Show");
-
-        sdBtn.className = "sd-btn";
-
-        sdBtn.appendChild(sdBtnTxt);
-        todoRow.appendChild(sdBtn);
-
-        // Add delete todo button
-        let deleteBtn = document.createElement("button");
-        let deleteBtnTxt = document.createTextNode("Delete");
-
-        deleteBtn.className = "delete-todo-btn";
-
-        deleteBtn.appendChild(deleteBtnTxt);
-        todoRow.appendChild(deleteBtn);
-
-        // Add onClick() event to delete button
-        deleteBtn.onclick = function() {
-          let matches = [];
-
-          project.getTodo().find( td => {
-            if (td === todo) {
-              null
-            } else {
-              matches.push(td);
-            }
-          });
-
-          project.clearTodo();
-          
-          matches.forEach( match => {
-            project.addTodo(match);
-          });
-
-          render();
-        };
-
-        // Add todo Description and create unique id for hiding and showing descriptions
-        let tdDesc = document.createElement("h3");
-        let tdDescTxt = document.createTextNode(todo.getDesc());
-
-        let nameAry = [];
-        let splitName = project.getName().split(" ");
-
-        splitName.forEach(part => {
-          let lcName = part.toLowerCase();
-          nameAry.push(lcName);
-        });
-      
-        let joinedName = nameAry.join("-");
-
-        tdDesc.className = "td-desc";
-        tdDesc.id = `description-${todoID}-${joinedName}`;
-
-        tdDesc.appendChild(tdDescTxt);
-        todoRow.appendChild(tdDesc);
-        // Hide description by default
-        tdDesc.style.display = "none";
-
-        // Add onClick() event to show button
-        sdBtn.onclick = function() {
-          let desc = document.getElementById(`${tdDesc.id}`);
-
-          if (desc.style.display === "none") {
-            sdBtn.textContent = "Hide";
-            desc.style.display = "block";
-          } else if (desc.style.display === "block") {
-            sdBtn.textContent = "Show";
-            desc.style.display = "none";
-          };
-        };
-      });
-    };
-  });
-};
-
-render();
 
 let flashMsg = (type, message) => {
   let flashDiv = document.getElementById("flash");
@@ -312,6 +51,261 @@ let flashMsg = (type, message) => {
     flashDiv.style.display = "none";
   }, 4000);
 };
+
+// Generates updated html based on projects array
+let render = () => {
+  if (projects.length !== 0) {
+    // Hide message that says there aren't any projects
+    document.getElementById("e-title").style.display = "none";
+
+    // Remove all previous renders so there are no accidental duplicates
+    document.querySelectorAll(".proj-div").forEach( project => project.remove());
+
+    let gridDiv = document.getElementById("todo-grid");
+
+    projects.forEach( project => {
+      // Create Div for every project
+      let projDiv = document.createElement("div");
+      projDiv.className = "proj-div";
+      gridDiv.appendChild(projDiv);
+
+      // div for containing a 3 column grid
+      let grid3Div = document.createElement("div");
+      grid3Div.className = "grid3-div";
+      projDiv.appendChild(grid3Div);
+
+      // Empty div to fill free space on grid
+      let emptyDiv = document.createElement("div");
+      grid3Div.appendChild(emptyDiv);
+
+      // Add name
+      let pName = document.createElement("h2");
+      let pNameTxt = document.createTextNode(project.getName());
+
+      pName.className = "proj-name";
+
+      pName.appendChild(pNameTxt);
+      grid3Div.appendChild(pName);
+
+      // Add delete project button
+      let projDelBtn = document.createElement("button");
+      let projDelBtnTxt = document.createTextNode("Delete");
+
+      projDelBtn.className = "delete-proj-btn";
+
+      projDelBtn.appendChild(projDelBtnTxt);
+      grid3Div.appendChild(projDelBtn);
+
+      // Add onClick() event to delete button
+      projDelBtn.onclick = function() {
+        let confirmDelete = confirm("Are you sure you want to delete this project?");
+
+        if (confirmDelete === true) {
+          let nonMatches = [];
+
+          projects.find( proj => {
+            if (proj === project) {
+              null
+            } else {
+              // Push all non-matches into array
+              nonMatches.push(proj);
+            }
+          });
+          
+          // Delete all projects
+          projects = [];
+          
+          // Push all non-matches into project array 
+          nonMatches.forEach( nm => {
+            projects.push(nm);
+          });
+
+          flashMsg("success", `Project ${project.getName()} was deleted`);
+          render();
+        };
+      };
+
+      // Create Div for every todo's
+      let todoDiv = document.createElement("div");
+      todoDiv.className = "todo-div";
+      projDiv.appendChild(todoDiv);
+
+      // Adds info bar and todo's only if the project contains any todo's
+      if (project.getTodo().length > 0) {
+        // Add info label div
+        let todoRowInfo = document.createElement("div");
+        todoRowInfo.className = "todo-row-info";
+        todoDiv.appendChild(todoRowInfo);
+
+        // Add todo Title label
+        let tdTitleInfo = document.createElement("h3");
+        let tdTitleTxtInfo = document.createTextNode("Title");
+
+        tdTitleInfo.className = "td-title-info";
+
+        tdTitleInfo.appendChild(tdTitleTxtInfo);
+        todoRowInfo.appendChild(tdTitleInfo);
+
+        // Add todo Date label
+        let tdDateInfo = document.createElement("h3");
+        let tdDateTxtInfo = document.createTextNode("Date");
+
+        tdDateInfo.className = "td-date-info";
+
+        tdDateInfo.appendChild(tdDateTxtInfo);
+        todoRowInfo.appendChild(tdDateInfo);
+
+        // Add todo Priority label
+        let tdPriorityInfo = document.createElement("h3");
+        let tdPriorityTxtInfo = document.createTextNode("Priority");
+
+        tdPriorityInfo.className = "td-priority-info";
+
+        tdPriorityInfo.appendChild(tdPriorityTxtInfo);
+        todoRowInfo.appendChild(tdPriorityInfo);
+
+        // Add Show label
+        let tdshowInfo = document.createElement("h3");
+        let tdshowTxtInfo = document.createTextNode("Show");
+
+        tdshowInfo.className = "td-priority-info";
+
+        tdshowInfo.appendChild(tdshowTxtInfo);
+        todoRowInfo.appendChild(tdshowInfo);
+
+        // Add todo delete label
+        let tdDelInfo = document.createElement("h3");
+        let tdDelTxtInfo = document.createTextNode("Delete");
+
+        tdDelInfo.className = "td-priority-info";
+
+        tdDelInfo.appendChild(tdDelTxtInfo);
+        todoRowInfo.appendChild(tdDelInfo);
+
+        let todoID = 0;
+
+        // For each todo in project generate html
+        project.getTodo().forEach( todo => {
+          todoID++;
+          // Create Div for every todo's
+          let todoRow = document.createElement("div");
+          todoRow.className = "todo-row";
+          todoDiv.appendChild(todoRow);
+
+          // Add todo Title
+          let tdTitle = document.createElement("h3");
+          let tdTitleTxt = document.createTextNode(todo.getTitle());
+
+          tdTitle.className = "td-title";
+
+          tdTitle.appendChild(tdTitleTxt);
+          todoRow.appendChild(tdTitle);
+
+          // Add todo Date
+          let tdDate = document.createElement("h3");
+          let tdDateTxt = document.createTextNode(todo.getDate());
+
+          tdDate.className = "td-date";
+
+          tdDate.appendChild(tdDateTxt);
+          todoRow.appendChild(tdDate);
+
+          // Add todo Priority
+          let tdPriority = document.createElement("h3");
+          let tdPriorityTxt = document.createTextNode(todo.getPriority());
+
+          tdPriority.className = "td-priority";
+
+          tdPriority.appendChild(tdPriorityTxt);
+          todoRow.appendChild(tdPriority);
+
+          // Add Show description button
+          let sdBtn = document.createElement("button");
+          let sdBtnTxt = document.createTextNode("Show");
+
+          sdBtn.className = "sd-btn";
+
+          sdBtn.appendChild(sdBtnTxt);
+          todoRow.appendChild(sdBtn);
+
+          // Add delete todo button
+          let deleteBtn = document.createElement("button");
+          let deleteBtnTxt = document.createTextNode("Delete");
+
+          deleteBtn.className = "delete-todo-btn";
+
+          deleteBtn.appendChild(deleteBtnTxt);
+          todoRow.appendChild(deleteBtn);
+
+          // Add onClick() event to delete button
+          deleteBtn.onclick = function() {
+            let nonMatches = [];
+
+            project.getTodo().find( td => {
+              if (td === todo) {
+                null
+              } else {
+                nonMatches.push(td);
+              }
+            });
+
+            project.clearTodo();
+            
+            nonMatches.forEach( match => {
+              project.addTodo(match);
+            });
+
+            render();
+            flashMsg("success", `Todo ${todo.getTitle()} was deleted`);
+          };
+
+          // Add todo Description and create unique id for hiding and showing descriptions
+          let tdDesc = document.createElement("h3");
+          let tdDescTxt = document.createTextNode(todo.getDesc());
+
+          let nameAry = [];
+          let splitName = project.getName().split(" ");
+
+          splitName.forEach(part => {
+            let lcName = part.toLowerCase();
+            nameAry.push(lcName);
+          });
+        
+          let joinedName = nameAry.join("-");
+
+          tdDesc.className = "td-desc";
+          tdDesc.id = `description-${todoID}-${joinedName}`;
+
+          tdDesc.appendChild(tdDescTxt);
+          todoRow.appendChild(tdDesc);
+          // Hide description by default
+          tdDesc.style.display = "none";
+
+          // Add onClick() event to show button
+          sdBtn.onclick = function() {
+            let desc = document.getElementById(`${tdDesc.id}`);
+
+            if (desc.style.display === "none") {
+              sdBtn.textContent = "Hide";
+              desc.style.display = "block";
+            } else if (desc.style.display === "block") {
+              sdBtn.textContent = "Show";
+              desc.style.display = "none";
+            };
+          };
+        });
+      };
+    });
+  } else {
+    // Remove all previous renders so there are no accidental duplicates
+    document.querySelectorAll(".proj-div").forEach( project => project.remove());
+
+    // Show message that there aren't any projects
+    document.getElementById("e-title").style.display = "block";
+  };
+};
+
+render();
 
 let newProject = (() => {
   let start = () => {
@@ -372,6 +366,7 @@ let newTodo = (() => {
 
     // Create drop down options based on projects
     projects.forEach( project => {
+      dropdown.options.length = 0;
       let newOption = document.createElement("option");
       let optionTxt = document.createTextNode(project.getName());
       
@@ -386,6 +381,17 @@ let newTodo = (() => {
       document.getElementById("np-hide").style.display = "none"
 
       form.style.display = "block";
+
+      // Load drop down again
+      projects.forEach( project => {
+        dropdown.options.length = 0;
+        let newOption = document.createElement("option");
+        let optionTxt = document.createTextNode(project.getName());
+        
+        newOption.appendChild(optionTxt);
+        newOption.setAttribute("value", project.getName());
+        dropdown.appendChild(newOption);
+      });
     });
 
     // Close todo form when button is pressed
