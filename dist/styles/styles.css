@@ -173,10 +173,34 @@ body {
   width: 100%;
 }
 
+.grid3-div {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  background-color: #006b59;
+}
+
 .proj-name {
   text-align: center;
   padding: 10px 0 10px 0;
+}
+
+.delete-proj-btn {
   background-color: #006b59;
+  border: 2px solid white;
+  height: 75%;
+  width: 85%;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.delete-proj-btn:hover {
+  background-color: maroon;
 }
 
 .todo-div {

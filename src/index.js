@@ -67,6 +67,15 @@ let render = () => {
     projDiv.className = "proj-div";
     gridDiv.appendChild(projDiv);
 
+    // div for containing a 3 column grid
+    let grid3Div = document.createElement("div");
+    grid3Div.className = "grid3-div";
+    projDiv.appendChild(grid3Div);
+
+    // Empty div to fill free space on grid
+    let emptyDiv = document.createElement("div");
+    grid3Div.appendChild(emptyDiv);
+
     // Add name
     let pName = document.createElement("h2");
     let pNameTxt = document.createTextNode(project.getName());
@@ -74,7 +83,44 @@ let render = () => {
     pName.className = "proj-name";
 
     pName.appendChild(pNameTxt);
-    projDiv.appendChild(pName);
+    grid3Div.appendChild(pName);
+
+    // Add delete project button
+    let projDelBtn = document.createElement("button");
+    let projDelBtnTxt = document.createTextNode("Delete");
+
+    projDelBtn.className = "delete-proj-btn";
+
+    projDelBtn.appendChild(projDelBtnTxt);
+    grid3Div.appendChild(projDelBtn);
+
+    // Add onClick() event to delete button
+    projDelBtn.onclick = function() {
+      let confirmDelete = confirm("Are you sure you want to delete this project?");
+
+      if (confirmDelete === true) {
+        let nonMatches = [];
+
+        projects.find( proj => {
+          if (proj === project) {
+            null
+          } else {
+            // Push all non-matches into array
+            nonMatches.push(proj);
+          }
+        });
+        
+        // Delete all projects
+        projects = [];
+        
+        // Push all non-matches into project array 
+        nonMatches.forEach( nm => {
+          projects.push(nm);
+        });
+  
+        render();
+      };
+    };
 
     // Create Div for every todo's
     let todoDiv = document.createElement("div");

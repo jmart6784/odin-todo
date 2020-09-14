@@ -169,10 +169,30 @@ body {
 	width: 100%;
 }
 
+.grid3-div {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	align-items: center;
+	justify-items: center;
+	background-color: $blue;
+}
+
 .proj-name {
 	text-align: center;
 	padding: 10px 0 10px 0;
+}
+
+.delete-proj-btn {
 	background-color: $blue;
+	border: 2px solid white;
+	height: 75%;
+	width: 85%;
+	font-size: 22px;
+	font-weight: 900;
+}
+
+.delete-proj-btn:hover {
+	background-color: $red;
 }
 
 .todo-div {
