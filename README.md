@@ -1,3 +1,12 @@
-Todo list mini project. Made for practicing factory functions and modules. no local storage implemented because local storage does not work with factory functions.
+![screen shot](screenshot.png)
 
-Part of the Odin project: https://www.theodinproject.com/courses/javascript/lessons/todo-list?ref=lnav
+The purpose of this project was to practice factory functions and modules.
+
+Visit this project live at: https://jmart6784.github.io/odin-todo/
+
+OR
+
+Run the project locally:
+
+1. Download or clone the repository.
+2. Open index.html in your web browser
