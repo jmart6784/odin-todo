@@ -1,38 +1,27 @@
-import { compareAsc, format } from 'date-fns'
+let projects;
+let newTodoBtn = document.getElementById("new-todo-btn");
 
-let projects = [];
-
-// Factory function for Projects that contain a todo array
-let Project = (name, todo) => {
-  let getName = () => name;
-  let getTodo = () => todo;
-  let clearTodo = () => todo = [];
-
-  let addTodo = (newTodo) => {
-    todo.push(newTodo);
-  };
-
-  return {
-    getName,
-    getTodo,
-    addTodo,
-    clearTodo
-  }
+if (JSON.parse(localStorage.getItem("projects")) === null || JSON.parse(localStorage.getItem("projects")).length === 0) {
+  localStorage.setItem("projects", JSON.stringify([]));
+  projects = JSON.parse(localStorage.getItem("projects"));
+  newTodoBtn.style.display = "none";
+} else {
+  projects = JSON.parse(localStorage.getItem("projects"));
+  newTodoBtn.style.display = "block";
 };
 
-// Factory function for todo's
-let Todo = (title, description, dueDate, priority) => {
-  let getTitle = () => title;
-  let getDesc = () => description;
-  let getDate = () => dueDate;
-  let getPriority = () => priority;
+// Project object
+function Project(name, todo) {
+  this.name = name;
+  this.todo = todo;
+};
 
-  return {
-    getTitle,
-    getDesc,
-    getDate,
-    getPriority
-  }
+// Todo object
+function Todo(title, description, dueDate, priority) {
+  this.title = title;
+  this.desc = description;
+  this.date = dueDate;
+  this.priority = priority;
 };
 
 let flashMsg = (type, message) => {
@@ -55,6 +44,8 @@ let flashMsg = (type, message) => {
 // Generates updated html based on projects array
 let render = () => {
   if (projects.length !== 0) {
+    newTodoBtn.style.display = "block";
+
     // Hide message that says there aren't any projects
     document.getElementById("e-title").style.display = "none";
 
@@ -80,7 +71,7 @@ let render = () => {
 
       // Add name
       let pName = document.createElement("h2");
-      let pNameTxt = document.createTextNode(project.getName());
+      let pNameTxt = document.createTextNode(project.name);
 
       pName.className = "proj-name";
 
@@ -120,7 +111,8 @@ let render = () => {
             projects.push(nm);
           });
 
-          flashMsg("success", `Project ${project.getName()} was deleted`);
+          localStorage.setItem("projects", JSON.stringify(projects));
+          flashMsg("success", `Project ${project.name} was deleted`);
           render();
         };
       };
@@ -131,7 +123,7 @@ let render = () => {
       projDiv.appendChild(todoDiv);
 
       // Adds info bar and todo's only if the project contains any todo's
-      if (project.getTodo().length > 0) {
+      if (project.todo.length > 0) {
         // Add info label div
         let todoRowInfo = document.createElement("div");
         todoRowInfo.className = "todo-row-info";
@@ -185,7 +177,7 @@ let render = () => {
         let todoID = 0;
 
         // For each todo in project generate html
-        project.getTodo().forEach( todo => {
+        project.todo.forEach( todo => {
           todoID++;
           // Create Div for every todo's
           let todoRow = document.createElement("div");
@@ -194,7 +186,7 @@ let render = () => {
 
           // Add todo Title
           let tdTitle = document.createElement("h3");
-          let tdTitleTxt = document.createTextNode(todo.getTitle());
+          let tdTitleTxt = document.createTextNode(todo.title);
 
           tdTitle.className = "td-title";
 
@@ -203,7 +195,7 @@ let render = () => {
 
           // Add todo Date
           let tdDate = document.createElement("h3");
-          let tdDateTxt = document.createTextNode(todo.getDate());
+          let tdDateTxt = document.createTextNode(todo.date);
 
           tdDate.className = "td-date";
 
@@ -212,7 +204,7 @@ let render = () => {
 
           // Add todo Priority
           let tdPriority = document.createElement("h3");
-          let tdPriorityTxt = document.createTextNode(todo.getPriority());
+          let tdPriorityTxt = document.createTextNode(todo.priority);
 
           tdPriority.className = "td-priority";
 
@@ -241,7 +233,7 @@ let render = () => {
           deleteBtn.onclick = function() {
             let nonMatches = [];
 
-            project.getTodo().find( td => {
+            project.todo.find( td => {
               if (td === todo) {
                 null
               } else {
@@ -249,22 +241,23 @@ let render = () => {
               }
             });
 
-            project.clearTodo();
+            project.todo = [];
             
             nonMatches.forEach( match => {
-              project.addTodo(match);
+              project.todo.push(match);
             });
-
+            
+            localStorage.setItem("projects", JSON.stringify(projects));
             render();
-            flashMsg("success", `Todo ${todo.getTitle()} was deleted`);
+            flashMsg("success", `Todo ${todo.title} was deleted`);
           };
 
           // Add todo Description and create unique id for hiding and showing descriptions
           let tdDesc = document.createElement("h3");
-          let tdDescTxt = document.createTextNode(todo.getDesc());
+          let tdDescTxt = document.createTextNode(todo.desc);
 
           let nameAry = [];
-          let splitName = project.getName().split(" ");
+          let splitName = project.name.split(" ");
 
           splitName.forEach(part => {
             let lcName = part.toLowerCase();
@@ -297,6 +290,7 @@ let render = () => {
       };
     });
   } else {
+    newTodoBtn.style.display = "none";
     // Remove all previous renders so there are no accidental duplicates
     document.querySelectorAll(".proj-div").forEach( project => project.remove());
 
@@ -336,8 +330,11 @@ let newProject = (() => {
         flashMsg("error", "Project name cannot be longer than 30 characters");
         newProjectInput.value = "";
       } else {
-        let newProj = Project(newProjectInput.value, []);
+        let newProj = new Project(newProjectInput.value, []);
+        
         projects.push(newProj);
+        localStorage.setItem("projects", JSON.stringify(projects));
+
         flashMsg("success", `Project ${newProjectInput.value} was created`);
         newProjectInput.value = "";
         render();
@@ -368,10 +365,10 @@ let newTodo = (() => {
     projects.forEach( project => {
       dropdown.options.length = 0;
       let newOption = document.createElement("option");
-      let optionTxt = document.createTextNode(project.getName());
+      let optionTxt = document.createTextNode(project.name);
       
       newOption.appendChild(optionTxt);
-      newOption.setAttribute("value", project.getName());
+      newOption.setAttribute("value", project.name);
       dropdown.appendChild(newOption);
     });
 
@@ -386,10 +383,10 @@ let newTodo = (() => {
       projects.forEach( project => {
         dropdown.options.length = 0;
         let newOption = document.createElement("option");
-        let optionTxt = document.createTextNode(project.getName());
+        let optionTxt = document.createTextNode(project.name);
         
         newOption.appendChild(optionTxt);
-        newOption.setAttribute("value", project.getName());
+        newOption.setAttribute("value", project.name);
         dropdown.appendChild(newOption);
       });
     });
@@ -401,12 +398,6 @@ let newTodo = (() => {
 
     // Submit todo form
     submitBtn.addEventListener("click", function() {
-      // Split date from input and make the results integers
-      let splitDate = date.value.split("-");
-      let month = parseInt(splitDate[1]);
-      let day = parseInt(splitDate[2]);
-      let year = parseInt(splitDate[0]);
-
       // Form validations with flash message
       if (
         !(title.value.length <= 20) || 
@@ -428,10 +419,12 @@ let newTodo = (() => {
       } else {
         // Loop through projects to find a match from dropdown menu and add todo
         projects.forEach( project => {
-          if (project.getName() === dropdown.value) {
-            let newTodo =  Todo(title.value, description.value, format(new Date(year, month, day), 'MM-dd-yyyy'), parseInt(priority.value));
+          if (project.name === dropdown.value) {
+            let newTodo = new Todo(title.value, description.value, date.value, parseInt(priority.value));
   
-            project.addTodo(newTodo);
+            project.todo.push(newTodo);
+            localStorage.setItem("projects", JSON.stringify(projects));
+
             title.value = "";
             description.value = "";
             priority.value = "";

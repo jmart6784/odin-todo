@@ -99,11 +99,10 @@ body {
 #nav-btn-div {
 	justify-self: end;
 	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
 	column-gap: 50px;
+	display: flex;
 	align-items: center;
-	justify-items: end;
+	justify-content: flex-end;
 }
 
 #new-todo-btn {

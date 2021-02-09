@@ -93,19 +93,19 @@ body {
 }
 
 #nav-btn-div {
-  -ms-grid-column-align: end;
-      justify-self: end;
+  justify-self: end;
   width: 100%;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 1fr 1fr;
-      grid-template-columns: 1fr 1fr;
   -webkit-column-gap: 50px;
           column-gap: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  justify-items: end;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 #new-todo-btn {
