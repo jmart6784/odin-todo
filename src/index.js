@@ -361,17 +361,6 @@ let newTodo = (() => {
     let date = document.getElementById("date-input");
     let dropdown = document.getElementById("proj-select");
 
-    // Create drop down options based on projects
-    projects.forEach( project => {
-      dropdown.options.length = 0;
-      let newOption = document.createElement("option");
-      let optionTxt = document.createTextNode(project.name);
-      
-      newOption.appendChild(optionTxt);
-      newOption.setAttribute("value", project.name);
-      dropdown.appendChild(newOption);
-    });
-
     // Show new todo form when button is pressed
     newTdBtn.addEventListener("click", function() {
       // Hide New Project form
@@ -379,14 +368,13 @@ let newTodo = (() => {
 
       form.style.display = "block";
 
+      dropdown.options.length = 0;
       // Load drop down again
       projects.forEach( project => {
-        dropdown.options.length = 0;
         let newOption = document.createElement("option");
-        let optionTxt = document.createTextNode(project.name);
-        
-        newOption.appendChild(optionTxt);
-        newOption.setAttribute("value", project.name);
+        newOption.textContent = project.name;
+        newOption.value = project.name;
+
         dropdown.appendChild(newOption);
       });
     });
